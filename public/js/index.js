@@ -7,7 +7,7 @@ searchForm.addEventListener('submit', async function (event) {
     const title = searchInput.value.trim();
     if (title.length > 0) {
         try {
-            const response = await fetch(`http://localhost:3333/api/books/${encodeURIComponent(title)}`);
+            const response = await fetch(`https://bookshelf-s8jz.onrender.com/api/books/${encodeURIComponent(title)}`);
             if (!response.ok) {
                 throw new Error('Erro ao buscar livros');
             }
