@@ -15,7 +15,7 @@ router.get('/addBook', (req, res) => {
 
 router.get('/book/:id', async (req, res) => {
   const id = req.params.id;
-  const response = await fetch(`http://localhost:3333/api/book/${id}`);
+  const response = await fetch(`https://bookshelf-s8jz.onrender.com/api/book/${id}`);
   const data = await response.json();
   const bookData = data.body.bookData;
 
@@ -24,14 +24,14 @@ router.get('/book/:id', async (req, res) => {
 
 router.get('/addedbook/:id', async (req, res) => {
   const id = req.params.id;
-  const response = await fetch(`http://localhost:3333/api/addedBook/${id}`);
+  const response = await fetch(`https://bookshelf-s8jz.onrender.com/api/addedBook/${id}`);
   const data = await response.json();
   console.log(data)
   res.render('addedBook', { bookData: data[0] });
 });
 
 router.get('/bookshelf/', async (req, res) => {
-  const response = await fetch(`http://localhost:3333/api/book/`);
+  const response = await fetch(`https://bookshelf-s8jz.onrender.com/api/book/`);
   const data = await response.json();
 
   res.render('bookshelf', {books: data})
