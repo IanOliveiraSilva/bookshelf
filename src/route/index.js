@@ -31,7 +31,7 @@ router.get('/addedbook/:id', async (req, res) => {
 });
 
 router.get('/bookshelf/', async (req, res) => {
-  const response = await fetch(`http://localhost:3333/api/book/`);
+  const response = await fetch(`https://bookshelf-s8jz.onrender.com/api/book/`);
   const data = await response.json();
   console.log(data)
   res.render('bookshelf', {books: data})
