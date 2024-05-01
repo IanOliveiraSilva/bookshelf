@@ -1,0 +1,18 @@
+<%- include('partials/header', {pageTitle: 'Virtual Library' }) %>
+
+    <link rel="stylesheet" href="../css/index.css">
+
+
+    <div class="container py-5">
+        <div class="row justify-content-center mt-5">
+            <ul class="list-unstyled d-flex flex-wrap">
+                <% books.forEach((book)=> { %>
+                    <li class="book-item p-2" style="margin: 10px;">
+                        <a href="addedBook/<%= book.id %>">
+                            <img class="book-image poster img-fluid" src="<%= book.image %>" alt="<%= book.name %>">
+                        </a>
+                    </li>
+                    <% }); %>
+            </ul>
+        </div>
+    </div>
