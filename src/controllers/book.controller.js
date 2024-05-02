@@ -83,7 +83,7 @@ exports.getBooks = async (req, res, next) => {
 
     res.status(200).json(response)
   } catch (error) {
-   next(error) 
+    next(error)
   }
 }
 
@@ -91,10 +91,51 @@ exports.getAddedBookById = async (req, res, next) => {
   try {
     const id = req.params.id;
 
-    const response = await bookservice.getAddedBookById({id})
+    const response = await bookservice.getAddedBookById({ id })
 
     res.status(200).json(response)
   } catch (error) {
-   next(error) 
+    next(error)
   }
 }
+
+exports.updateBook = async (req, res, next) => {
+  try {
+    const {
+      name,
+      description,
+      author,
+      year,
+      publisher
+    } = req.body;
+
+    const id = req.params.id;
+    
+    const response = await bookservice.updateBook({
+      name,
+      description,
+      author,
+      year,
+      publisher,
+      id
+    });
+
+   
+    return res.status(200).json(response);
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.deleteBook = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    
+    const response = await bookservice.deleteBook({ id });
+
+   
+    return res.status(200).json(response);
+  } catch (error) {
+    next(error);
+  }
+};

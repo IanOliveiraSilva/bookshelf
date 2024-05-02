@@ -30,6 +30,10 @@ router.get('/addedbook/:id', async (req, res) => {
   res.render('addedBook', { bookData: data[0] });
 });
 
+router.get('/updateBook/:id', async (req, res) => {
+  res.render('updateBook');
+});
+
 router.get('/bookshelf/', async (req, res) => {
   const response = await fetch(`https://bookshelf-s8jz.onrender.com/api/book/`);
   const data = await response.json();

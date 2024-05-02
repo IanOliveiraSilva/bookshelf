@@ -1,30 +1,47 @@
 <%- include('partials/header', {pageTitle: 'Virtual Library' }) %>
 
-<link rel="stylesheet" href="../css/book.css">
+    <link rel="stylesheet" href="../css/book.css">
 
-<main>
-    <% if (bookData) { %>
-        <div class="container py-5">
-            <div class="row g-0 align-items-center margin-top">
-                <div class="col-md-4">
-                    <img width="132" height="196" id="book-image" src="<%= bookData.image %>" alt="Capa do Livro" class="poster">
-                    <h3 id="book-title" class="card-title"><%= bookData.name %></h3>
-                    <p id="book-date" class="text-muted inline"><%= new Date(bookData.year).toLocaleDateString('pt-BR') %></p>
+    <main>
+        <% if (bookData) { %>
+            <div class="container py-5">
+                <div class="row g-0 align-items-center margin-top">
+                    <div class="col-md-4">
+                        <img width="132" height="196" id="book-image" src="<%= bookData.image %>" alt="Capa do Livro"
+                            class="poster">
+                        <h3 id="book-title" class="card-title">
+                            <%= bookData.name %>
+                        </h3>
+                        <p id="book-date" class="text-muted inline">
+                            <%= new Date(bookData.year).toLocaleDateString('pt-BR') %>
+                        </p>
 
-                    <p id="book-author" class="card-text"><%= bookData.author %></p>
-                </div>
-                <div class="col-md-8">
-                    <p id="book-description"><%= bookData.description %></p>
-                    <div id="castList" class="">
-                        <h3><span id="book-publisher" class="character align-items-center text-sluglist"> <%= bookData.publisher %></span></h3>
+                        <p id="book-author" class="card-text">
+                            <%= bookData.author %>
+                        </p>
+                        <div class="game-actions">
+                            <a href="/updateBook/<%= bookData.id %>">
+                                <i class="fa fa-pencil"></i></a>&emsp;
+                            <button id="delete-book-button" style="background: none; border: none;" data-book-id="<%= bookData.id %>">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </div>
                     </div>
-                    <a href="/" class="back-link text-center">
-                        <i class="fa-solid fa-house" style="color: #ffffff; font-size: 30px;"></i>
-                    </a>
+                    <div class="col-md-8">
+                        <p id="book-description">
+                            <%= bookData.description %>
+                        </p>
+                        <div id="castList" class="">
+                            <h3><span id="book-publisher" class="character align-items-center text-sluglist"> <%=
+                                        bookData.publisher %></span></h3>
+                        </div>
+                        <a href="/" class="back-link text-center">
+                            <i class="fa-solid fa-house" style="color: #ffffff; font-size: 30px;"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
-    <% } %>
-</main>
+            <% } %>
+    </main>
 
-<script src="../js/addBook.js"></script>
+    <script src="../js/addedBook.js"></script>

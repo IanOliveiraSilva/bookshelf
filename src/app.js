@@ -42,12 +42,17 @@ app.use((err, req, res, next) => {
     return res.status(400).json({
       status: "error",
       message: err.message,
+      stack: err.stack, 
     });
   }
+
+  console.error(err);
+
   return res.status(500).json({
     status: "error",
     message: "Internal Server Error",
   });
 });
+
 
 module.exports = app;
