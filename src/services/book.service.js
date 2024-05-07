@@ -24,10 +24,14 @@ class Booksservices {
 
     }
 
-    async getBooks({ }) {
-        const books = await bookRepository.getBooks({});
-
-        return books.rows
+    async getBooks({ sort, page, pageSize }) {
+        const books = await bookRepository.getBooks({ sort, page, pageSize });
+        const bookCount = await bookRepository.getBooksCount({});
+    
+        return {
+            Livros: books,
+            Quantidade: bookCount
+        }
     }
 
     async getAddedBookById({ id }) {
@@ -63,6 +67,7 @@ class Booksservices {
 
     async deleteBook({ id }){
         const book = await bookRepository.deleteBook({ id });
+        
 
         return book
     }

@@ -1,0 +1,41 @@
+#sortOptions {
+    width: 200px;
+    padding: 12px;
+    font-size: 16px;
+    border: none;
+    border-radius: 50px;
+    background: linear-gradient(to right, #0c534b, #128c7e);
+    color: #ffffff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+#sortOptions:hover {
+    transform: scale(1.05);
+    background: linear-gradient(to right, #128c7e, #0c534b);
+}
+
+#sortOptions option {
+    font-size: 18px;
+    background-color: #ffffff;
+    color: #128c7e;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+
+#sortOptions::before {
+    content: '\25BC';
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    font-size: 24px;
+    color: #ffffff;
+}
+
+#sortOptions::-ms-expand {
+    display: none;
+}

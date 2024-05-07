@@ -35,14 +35,30 @@ class BooksRepository {
     return book;
   }
 
-  async getBooks({ }) {
-    const book = await db.query(
+  async getBooks({ sort, page, pageSize }) {
+    const sortOptions = {
+      author: 'author DESC',
+      publisher: 'publisher ASC',
+      year_asc: 'year ASC',
+      year_desc: 'year DESC',
+      title_desc: 'name ASC',
+      title_asc: 'name DESC'
+    };
+
+    const orderBy = sortOptions[sort] || 'year ASC';
+    const offset = (page - 1) * pageSize;
+
+    const books = await db.query(
       `SELECT id, image
-       FROM books`
+       FROM books
+       GROUP BY id
+       ORDER BY ${orderBy}
+       LIMIT ${pageSize} OFFSET ${offset}`
     );
 
-    return book;
-  }
+    return books.rows;
+}
+
 
   async getAddedBookById({ id }) {
     const book = await db.query(
@@ -53,7 +69,6 @@ class BooksRepository {
 
     return book;
   }
-
 
   async updateBook(updatedBook, id) {
     const newBook = await db.query(
@@ -87,6 +102,13 @@ class BooksRepository {
     );
 
     return rows;
+  }
+
+  async getBooksCount({}){
+    const bookCount = await db.query(`SELECT COUNT(*)
+       FROM books`);
+
+       return bookCount.rows;
   }
 
 

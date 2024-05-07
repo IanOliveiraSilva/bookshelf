@@ -79,7 +79,8 @@ exports.addBookFromAPI = async (req, res, next) => {
 
 exports.getBooks = async (req, res, next) => {
   try {
-    const response = await bookservice.getBooks({})
+    const { sort, page = 1, pageSize = 10 } = req.query;
+    const response = await bookservice.getBooks({ sort, page, pageSize })
 
     res.status(200).json(response)
   } catch (error) {
