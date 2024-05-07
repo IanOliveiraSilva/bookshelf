@@ -15,6 +15,7 @@ document.getElementById('add-book-form').addEventListener('submit', async (event
     });
 
     if (response.ok) {
+        alert('Livro adicionado com sucesso!');
         window.location.href = `/bookshelf`;
     } else {
         alert('Failed to add book');
