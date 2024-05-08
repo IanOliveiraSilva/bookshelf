@@ -40,13 +40,16 @@ router.get('/updateBook/:id', async (req, res) => {
 router.get('/bookshelf', async (req, res) => {
   let page = req.query.page || '1';
   let sort = req.query.sort;
-  let pageSize = req.query.pagesize || 50;
+  let pageSize = req.query.pagesize || 5;
   
   const url = `http://bookshelf-s8jz.onrender.com/api/book/?pageSize=${pageSize}&page=${page}&sort=${sort}`;
   
   const response = await fetch(url);
   const data = await response.json();
-  res.render('bookshelf', {books: data, page: page}) 
+
+  let totalPages = Math.ceil(data.Quantidade[0].count / pageSize);
+
+  res.render('bookshelf', {books: data, page: page, totalPages:totalPages}) 
 });
 
 

@@ -5,7 +5,7 @@
 
     <div class="container py-5">
         <select id="sortOptions">
-            <option >Ordenar Livros</option>
+            <option>Ordenar Livros</option>
             <option value="year_asc">Mais Antigos</option>
             <option value="year_desc">Mais Novos</option>
             <option value="publisher">Editora</option>
@@ -15,7 +15,10 @@
         </select>
         &emsp;
 
-        <hr><p class="book-count"><%= books.Quantidade[0].count %></p>
+        <hr>
+        <p class="book-count">
+            <%= books.Quantidade[0].count %>
+        </p>
         <div class="row justify-content-center mt-5">
             <ul class="book-list list-unstyled d-flex flex-wrap">
                 <% books.Livros.forEach((book, index)=> { %>
@@ -24,24 +27,27 @@
                             <img class="book-image poster img-fluid" src="<%= book.image %>" alt="Livro <%= book.id %>">
                         </a>
                     </li>
-                <% }); %>
+                    <% }); %>
             </ul>
 
-            
+
         </div>
-        
-        
+
+
     </div>
     <ul class="pagination justify-content-center mt-5">
-        <% for(let i = 1; i <= 10; i++) { %>
+        <% for(let i=1; i <=totalPages; i++) { %>
             <li class="page-item <%= i == page ? 'active' : '' %>">
-                <a class="page-link" href="/bookshelf?page=<%= i %>"><%= i %></a>
+                <a class="page-link" href="/bookshelf?page=<%= i %>">
+                    <%= i %>
+                </a>
             </li>
-        <% } %>
+            <% } %>
     </ul>
-    
-    
-    
+
+
+
+
 
     <script src="../js/bookshelf.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
