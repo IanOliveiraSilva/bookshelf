@@ -1,19 +1,52 @@
 const searchForm = document.getElementById('search-form');
 const searchInput = document.getElementById('book-title');
-const searchResults = document.getElementById('search-results');
+let searchResults = document.getElementById('search-results');
 
-searchForm.addEventListener('submit', async function (event) {
-    event.preventDefault();
+const API_URL = 'https://bookshelf-s8jz.onrender.com/api/books/';
+
+async function fetchBooks(title) {
+    const response = await fetch(`${API_URL}${encodeURIComponent(title)}`);
+    if (!response.ok) {
+        throw new Error(`Erro ao buscar livros: ${response.statusText}`);
+    }
+    const data = await response.json();
+    return data.body.books;
+}
+
+function createBookElement(book) {
+    const li = document.createElement('li');
+    li.setAttribute('data-book-id', book.id);
+    if (book.image) {
+        li.innerHTML = `
+            <li class="book-item p-2">
+                <img src="${book.image}" alt="${book.title}" class="book-image poster img-fluid">
+            </li>
+        `;
+    }
+    li.addEventListener('click', () => {
+        window.location.href = `/book/${book.id}`;
+    });
+    return li;
+}
+
+function renderBooks(books) {
+    const ul = document.createElement('ul');
+    ul.classList.add('list-unstyled', 'd-flex', 'flex-wrap');
+    books.forEach(book => {
+        const li = createBookElement(book);
+        ul.appendChild(li);
+    });
+    searchResults.innerHTML = '';
+    searchResults.appendChild(ul);
+}
+
+searchInput.addEventListener('input', async function (event) {
     const title = searchInput.value.trim();
     if (title.length > 0) {
         try {
-            const response = await fetch(`https://bookshelf-s8jz.onrender.com/api/books/${encodeURIComponent(title)}`);
-            if (!response.ok) {
-                throw new Error('Erro ao buscar livros');
-            }
-            const data = await response.json();
-            if (data && data.body && data.body.books.length > 0) {
-                renderBooks(data.body.books);
+            const books = await fetchBooks(title);
+            if (books.length > 0) {
+                renderBooks(books);
             } else {
                 searchResults.innerHTML = 'Nenhum livro encontrado';
             }
@@ -26,33 +59,7 @@ searchForm.addEventListener('submit', async function (event) {
     }
 });
 
-function renderBooks(books) {
-    searchResults.innerHTML = '';
-    const ul = document.createElement('ul');
-    ul.classList.add('list-unstyled', 'd-flex', 'flex-wrap');
-    
-    books.forEach(book => {
-        const li = document.createElement('li');
-        li.setAttribute('data-book-id', book.id);
-    
-        if (book.image !== undefined && book.image !== null) {
-            li.innerHTML = `
-            <li class="book-item p-2">
-                <img src="${book.image}" alt="${book.title}" class="book-image poster img-fluid">
-            </li>
-            `;
-        }
-        
-        li.addEventListener('click', () => {
-            window.location.href = `/book/${book.id}`;
-        });
-        ul.appendChild(li);
-    });
-    
-    searchResults.appendChild(ul);
-    
-}
-
+// Inicialização
 let token = localStorage.getItem('token');
 console.log(token)
 document.cookie = `token=${token}; path=/`;

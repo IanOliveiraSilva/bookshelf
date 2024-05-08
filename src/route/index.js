@@ -40,7 +40,7 @@ router.get('/updateBook/:id', async (req, res) => {
 router.get('/bookshelf', async (req, res) => {
   let page = req.query.page || '1';
   let sort = req.query.sort;
-  let pageSize = req.query.pagesize || 5;
+  let pageSize = req.query.pagesize || 50;
   
   const url = `http://bookshelf-s8jz.onrender.com/api/book/?pageSize=${pageSize}&page=${page}&sort=${sort}`;
   
