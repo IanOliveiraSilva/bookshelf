@@ -1,6 +1,6 @@
-#sortOptions {
-    width: 200px;
-    padding: 12px;
+#sortOptions, #pageSize {
+    width: 150px;
+    padding: 10px;
     font-size: 16px;
     border: none;
     border-radius: 50px;
@@ -8,15 +8,15 @@
     color: #ffffff;
     cursor: pointer;
     transition: all 0.3s ease;
-    font-weight: 600;
+    font-weight: 500;
 }
 
-#sortOptions:hover {
+#sortOptions:hover, #pageSize:hover {
     transform: scale(1.05);
     background: linear-gradient(to right, #128c7e, #0c534b);
 }
 
-#sortOptions option {
+#sortOptions option, #pageSize option {
     font-size: 18px;
     background-color: #ffffff;
     color: #128c7e;
@@ -26,7 +26,7 @@
     transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
-#sortOptions::before {
+#sortOptions::before, #pageSize::before {
     content: '\25BC';
     position: absolute;
     top: 50%;
@@ -36,6 +36,6 @@
     color: #ffffff;
 }
 
-#sortOptions::-ms-expand {
+#sortOptions::-ms-expand, #pageSize::-ms-expand {
     display: none;
 }
