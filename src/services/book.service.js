@@ -19,7 +19,8 @@ class Booksservices {
             image
         });
         return {
-            message: book
+            message: "Livro adicionado com sucesso", 
+            book: book
         };
 
     }
@@ -69,7 +70,9 @@ class Booksservices {
         const book = await bookRepository.deleteBook({ id });
         
 
-        return book
+        return {
+            message: "Livro deletado com sucesso"
+        }
     }
 }
 
