@@ -5,7 +5,6 @@
     color: aqua;
 }
 
-
 .book-item {
     position: relative;
     cursor: pointer;
@@ -18,9 +17,15 @@
     height: 200px;
     transition: transform 0.3s ease;
 }
+.book-title {
+    width: 150px;
+    white-space: normal;
+    word-wrap: break-word;
+    color: #1ae9d1;
+}
 
-.book-item img:hover {
-    border: 3px solid #1ae9d1;
+
+.book-item img:hover, .book-title:hover {
     transform: scale(1.1);
 }
 
@@ -80,3 +85,4 @@ hr {
     box-shadow: none;
     outline: none;
 }
+

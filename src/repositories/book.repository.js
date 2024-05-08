@@ -49,15 +49,16 @@ class BooksRepository {
     const offset = (page - 1) * pageSize;
 
     const books = await db.query(
-      `SELECT id, image
+      `SELECT id, image, name, year
        FROM books
        GROUP BY id
        ORDER BY ${orderBy}
        LIMIT ${pageSize} OFFSET ${offset}`
     );
 
+
     return books.rows;
-}
+  }
 
 
   async getAddedBookById({ id }) {
@@ -104,11 +105,11 @@ class BooksRepository {
     return rows;
   }
 
-  async getBooksCount({}){
+  async getBooksCount({ }) {
     const bookCount = await db.query(`SELECT COUNT(*)
        FROM books`);
 
-       return bookCount.rows;
+    return bookCount.rows;
   }
 
 

@@ -7,9 +7,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     year: document.getElementById("book-date").textContent.trim(),
     image: document.getElementById("book-image").src.trim(),
     publisher: document.getElementById("book-publisher").textContent.trim()
+
   };
 
   document.getElementById("add-favorite-button").addEventListener('click', async () => {
+
     const response = await fetch('/api/book/api', {
       method: 'POST',
       headers: {
@@ -19,17 +21,17 @@ document.addEventListener('DOMContentLoaded', async () => {
         name: bookData.name,
         description: bookData.description,
         author: bookData.author,
-        year: bookData.year,
+        year: parseInt(bookData.year),
         image: bookData.image,
         publisher: bookData.publisher
       })
     });
 
     const responseData = await response.json();
-  
+
     if (responseData.message === 'Este livro já está no banco de dados.') {
       alert('Este livro já está na sua estante.');
     }
   });
-  
+
 });
