@@ -5,7 +5,8 @@ $(function () {
 
 document.addEventListener('DOMContentLoaded', async () => {
     let params = new URLSearchParams(window.location.search);
-    let page = params.get('page') || 1;
+    let page = parseInt(params.get('page')) || 1;
+
 
     const sort = document.getElementById("sortOptions");
 

@@ -67,8 +67,8 @@ hr {
 }
 
 .pagination .page-item.active .page-link {
-    background-color: #ff0000;
-    border-color: #18fce1;
+    background-color: #19b6a4;
+    border-color: #0c534b;
 }
 
 .pagination .disabled .page-link {

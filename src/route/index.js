@@ -46,8 +46,9 @@ router.get('/bookshelf', async (req, res) => {
   
   const response = await fetch(url);
   const data = await response.json();
-  res.render('bookshelf', {books: data})
+  res.render('bookshelf', {books: data, page: page}) 
 });
+
 
 
 
