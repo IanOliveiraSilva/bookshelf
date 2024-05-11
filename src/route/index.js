@@ -15,7 +15,7 @@ router.get('/addBook', (req, res) => {
 
 router.get('/book/:id', async (req, res) => {
   const id = req.params.id;
-  const response = await fetch(`https://bookshelf-s8jz.onrender.com/api/book/${id}`);
+  const response = await fetch(`https://bookshelf-s8jz.onrender.com/api/book/id/${id}`);
   const data = await response.json();
   const bookData = data.body.bookData;
 
