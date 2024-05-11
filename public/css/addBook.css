@@ -9,7 +9,9 @@ label {
 }
 
 input[type="text"],
-input[type="file"] {
+input[type="file"],
+input[type="number"],
+select {
     background-color: #0a4b43;
     color: #18beab;
     width: 100%;
@@ -53,3 +55,26 @@ label[for="image"]:hover {
     background-color: #0a4b43;
     color: #18beab;
 }
+
+small{
+    color: red;
+}
+
+.radio-group {
+    gap: 40px;
+    margin-bottom: 20px;
+    align-items: center;
+    padding: 10px;
+  }
+  
+  .radio-group label {
+    font-size: 1em;
+    color: #18beab;
+  }
+  
+  .radio-group input {
+    color: #18beab;
+    background-color: #0a4b43;
+    transform: scale(1.2);
+    margin-right: 10px;
+  }

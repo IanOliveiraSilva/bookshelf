@@ -16,7 +16,6 @@ router.get('/addBook', (req, res) => {
 router.get('/book/:id', async (req, res) => {
   const id = req.params.id;
   const response = await fetch(`https://bookshelf-s8jz.onrender.com/api/book/${id}`);
-  // const response = await fetch(`http://localhost:3333/api/book/${id}`);
   const data = await response.json();
   const bookData = data.body.bookData;
 
@@ -26,7 +25,6 @@ router.get('/book/:id', async (req, res) => {
 router.get('/addedbook/:id', async (req, res) => {
   const id = req.params.id;
   const response = await fetch(`https://bookshelf-s8jz.onrender.com/api/addedBook/${id}`);
-  // const response = await fetch(`http://localhost:3333/api/addedBook/${id}`);
   
   const data = await response.json();
   
@@ -47,7 +45,10 @@ router.get('/bookshelf', async (req, res) => {
   const response = await fetch(url);
   const data = await response.json();
 
-  let totalPages = Math.ceil(data.Quantidade[0].count / pageSize);
+  const quantidadeLivros = data.Quantidade[0].count || 0;
+  console.log(data.Livros[0])
+
+  let totalPages = Math.ceil(quantidadeLivros/ pageSize);
 
   res.render('bookshelf', {books: data, page: page, totalPages:totalPages}) 
 });

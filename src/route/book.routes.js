@@ -2,6 +2,14 @@ const router = require("express-promise-router")();
 const bookController = require("../controllers/book.controller");
 const { upload } = require("../controllers/book.controller");
 
+router.get(
+    "/book/id/:id",
+    bookController.getBookById);
+
+router.get(
+    "/book/title/:title",
+    bookController.getBooksByTitle);
+
 router.post(
     "/book/",
     upload.single('image'),
@@ -21,6 +29,16 @@ router.get(
 router.get(
     "/addedBook/:id",
     bookController.getAddedBookById
+)
+
+router.get(
+    "/collection/:id",
+    bookController.getCollectionByCollectionId
+)
+
+router.get(
+    "/books/:collection_name",
+    bookController.getBooksByCollectionName
 )
 
 router.patch(
