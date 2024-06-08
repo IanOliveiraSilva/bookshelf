@@ -20,7 +20,8 @@
                                 <%= bookData.publishedDate %>
                             </p>
 
-                            <p id="book-author" class="card-text"><%= bookData.authors.join(', ') %></p>
+                            <p id="book-author" class="card-text">
+                                <%= bookData.authors.join(', ') %></p>
 
                         <div class="game-actions">
                             <button id="add-favorite-button" class="btn-unstyled" data-book-id="<%= bookData.id %>">
@@ -82,8 +83,64 @@
         </div>
         
 
-        
-    </main>
+<div class="modal fade" id="collectionModal" tabindex="-1" aria-labelledby="collectionModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content" style="background-color: #0a4b43; color: #18beab;">
+        <div class="modal-header">
+          <h5 class="modal-title" id="collectionModalLabel">Adicionar à Coleção</h5>
+          <button type="button" style="background-color: #0a4b43; color: #1de4cd; font-size: 1px;"type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i style="font-size: 15px;" class="fa-solid fa-x"></i></button>
+        </div>
+        <div class="modal-body">
+          <form id="collectionForm">
+            <div class="mb-3">
+              <label for="collection-name" class="form-label">Nome da Coleção</label>
+              <input type="text" class="form-control" id="collection-name" style="background-color: #18beab; color: #0a4b43;">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button style="background-color: #0a4b43; color: #1de4cd;"type="button" class="btn" id="saveButton">Salvar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal de Sucesso -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content" style="background-color: #0a4b43; color: #18beab;">
+        <div class="modal-header">
+          <h5 class="modal-title" id="successModalLabel">Sucesso!</h5>
+          <button type="button" style="background-color: #0a4b43; color: #1de4cd; font-size: 1px;"type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Livro adicionado com sucesso!
+        </div>
+        <div class="modal-footer">
+            <button type="button" style="background-color: #0a4b43; color: #1de4cd;"type="button" class="btn" id="closeSuccessButton" data-bs-dismiss="modal">Fechar</button>
 
-    
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal de Erro -->
+  <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content" style="background-color: #0a4b43; color: #18beab;">
+        <div class="modal-header">
+          <h5 class="modal-title" id="errorModalLabel">Erro</h5>
+          <button type="button" style="background-color: #0a4b43; color: #1de4cd; font-size: 1px;"type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Este livro já está na sua estante.
+        </div>
+        <div class="modal-footer">
+          <button type="button" style="background-color: #0a4b43; color: #1de4cd;"type="button" class="btn" data-bs-dismiss="modal">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+    </main>
     <script src="../js/book.js"></script>

@@ -20,7 +20,7 @@ exports.upload = upload;
 
 const FILE_UPLOAD_ERROR = 'File upload error';
 const BOOK_EXISTS_ERROR = 'Esse livro já está no banco de dados';
-const SUCCESS_STATUS = 200;
+const SUCCESS_STATUS = 201;
 const ERROR_STATUS = 400;
 
 async function uploadFile(req) {
@@ -45,6 +45,7 @@ async function uploadFile(req) {
 exports.addBook = async (req, res, next) => {
   try {
     const { name, description, author, year, publisher, genre, pagecount, lang, collection_name } = req.body;
+
     const image = await uploadFile(req);
 
     try {
@@ -77,7 +78,7 @@ exports.addBook = async (req, res, next) => {
 
 exports.addBookFromAPI = async (req, res, next) => {
   try {
-    const { name, description, author, year, image, publisher, genre, pagecount, lang, collection_name } = req.body;
+    const { name, description, author, year, image, publisher, genre, pagecount, lang, collection_name} = req.body;
 
     const response = await bookservice.addBook({
       name,
@@ -92,7 +93,7 @@ exports.addBookFromAPI = async (req, res, next) => {
       collection_name
     });
 
-    res.status(200).json(response);
+    res.status(201).json(response);
 
   } catch (error) {
     next(error);
@@ -115,6 +116,18 @@ exports.getAddedBookById = async (req, res, next) => {
     const id = req.params.id;
 
     const response = await bookservice.getAddedBookById({ id })
+
+    res.status(200).json(response)
+  } catch (error) {
+    next(error)
+  }
+}
+
+exports.getCollectionByName = async (req, res, next) => {
+  try {
+    const collection_name = req.params.collection_name;
+
+    const response = await bookservice.getCollectionByName({ collection_name })
 
     res.status(200).json(response)
   } catch (error) {
@@ -174,7 +187,7 @@ exports.updateBook = async (req, res, next) => {
     });
 
 
-    return res.status(201).json(response);
+    return res.status(200).json(response);
   } catch (error) {
     next(error);
   }

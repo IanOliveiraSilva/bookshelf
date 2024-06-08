@@ -7,6 +7,11 @@ class BooksRepository {
     return collection.rows[0];
   }
 
+  async getCollectionsByName({ collection_name }) {
+    const collections = await db.query(`SELECT * FROM collection WHERE name ILIKE $1`, [`%${collection_name}%`])
+    return collections.rows;
+  }
+
   async getCollectionByCollectionId({ collection_id }) {
     const collection = await db.query(`
     SELECT collection.name 
@@ -75,13 +80,17 @@ class BooksRepository {
 
   async getBooks({ sort, page, pageSize }) {
     const sortOptions = {
-      author: 'author DESC',
+      author: 'author ASC',
       publisher: 'publisher ASC',
       year_asc: 'year ASC',
       year_desc: 'year DESC',
-      title_desc: 'name ASC',
-      title_asc: 'name DESC',
-      collection: 'collection_id DESC'
+      title_asc: `substring(books.name, '^(.*?)[^0-9]*') ASC, 
+                    NULLIF(regexp_replace(substring(books.name, '[0-9]+$'), '[^0-9]', '', 'g'), '')::INT ASC`,
+      title_desc: `substring(books.name, '^(.*?)[^0-9]*') DESC, 
+                     NULLIF(regexp_replace(substring(books.name, '[0-9]+$'), '[^0-9]', '', 'g'), '')::INT DESC`,
+      collection: 'collection.name ASC, books.name ASC',
+      created_at_asc: 'created_at ASC',
+      created_at_desc: 'created_at DESC'
     };
 
     const orderBy = sortOptions[sort] || 'year ASC';
@@ -89,7 +98,7 @@ class BooksRepository {
 
     const books = await db.query(
       `
-      SELECT books.id, books.image, books.name, books.year, books.collection_id,
+      SELECT books.id, books.publisher, books.author, books.image, books.name as title, books.year, books.collection_id,
       collection.name as collection_name
       FROM books
       LEFT JOIN collection
@@ -99,18 +108,18 @@ class BooksRepository {
       LIMIT ${pageSize} OFFSET ${offset}
       `
     );
-
-
     return books.rows;
   }
 
+
   async getBooksByCollectionName({ collection_name }) {
     const books = await db.query(
-      `SELECT books.name as title, books.id as book_id, books.author
+      `SELECT books.name as title, books.image, books.year, books.id as book_id, books.author
       FROM books
       INNER JOIN collection 
       ON books.collection_id = collection.id
       WHERE collection.name = $1
+      ORDER BY books.name ASC
       `,
       [collection_name]
     )
@@ -118,13 +127,12 @@ class BooksRepository {
     return books
   }
 
-
   async getAddedBookById({ id }) {
     const book = await db.query(
       `
       SELECT books.*, collection.name as collection_name
       FROM books 
-      JOIN collection
+      LEFT JOIN collection
       ON books.collection_id = collection.id
       WHERE books.id = $1
       `,
@@ -174,14 +182,13 @@ class BooksRepository {
     return rows;
   }
 
+
   async getBooksCount({ }) {
     const bookCount = await db.query(`SELECT COUNT(*)
        FROM books`);
 
     return bookCount.rows;
   }
-
-
 }
 
 module.exports = { BooksRepository };

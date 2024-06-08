@@ -32,6 +32,12 @@ router.get(
 )
 
 router.get(
+    "/collection/name/:collection_name",
+    bookController.getCollectionByName
+)
+
+
+router.get(
     "/collection/:id",
     bookController.getCollectionByCollectionId
 )
